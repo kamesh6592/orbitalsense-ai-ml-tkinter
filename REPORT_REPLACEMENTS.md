@@ -60,18 +60,18 @@ Insert these files at the corresponding yellow plot placeholders:
 
 ## UI screenshots
 
-The delivered project is a **Tkinter desktop UI**, not the React/FastAPI/CesiumJS dashboard described in several report paragraphs. Use only screenshots that match the software that actually exists:
+The delivered project now uses a **responsive HTML browser UI served by FastAPI**, which is suitable for Render. Use these actual screenshots:
 
-- Dashboard/input overview: [screenshot_tkinter_input_form.png](report_assets/screenshot_tkinter_input_form.png)
-- Predicted metrics and route rating: [screenshot_tkinter_prediction_result.png](report_assets/screenshot_tkinter_prediction_result.png)
-- Collision-risk alert page: **Not implemented in the delivered Tkinter project. Do not fabricate a screenshot.** Replace the placeholder with “Not implemented in the current prototype” or remove it.
-- CesiumJS 3D satellite view: **Not implemented in the delivered Tkinter project. Do not fabricate a screenshot.** Replace the placeholder with “Not implemented in the current prototype” or remove it.
+- Dashboard/input overview: [screenshot_web_dashboard_overview.png](report_assets/screenshot_web_dashboard_overview.png)
+- Predicted metrics and route rating: [screenshot_web_prediction_result.png](report_assets/screenshot_web_prediction_result.png)
+- Collision-risk alert page: **Not implemented in the delivered prototype. Do not fabricate a screenshot.** Replace the placeholder with “Not implemented in the current prototype” or remove it.
+- CesiumJS 3D satellite view: **Not implemented in the delivered prototype. Do not fabricate a screenshot.** Replace the placeholder with “Not implemented in the current prototype” or remove it.
 
-If the report is intended to describe a separate React/FastAPI/CesiumJS application, that application’s actual source and running deployment are needed before those four dashboard screenshots can be truthfully produced.
+The browser UI and API are served from one Render web service.
 
 ## End-to-end verification log
 
-The cleaned application was tested with the supplied sample CSV:
+The cleaned application was tested with the supplied sample CSV and browser API:
 
 ```text
 Command: python3 run_project.py --input new_links_sample.csv
@@ -89,8 +89,9 @@ Additional checks:
 
 - Python syntax compilation: **PASS**
 - Import of `orbitalsense.py` and `tkinter_ui.py`: **PASS**
-- Tkinter form launch under a virtual display: **PASS**
+- Browser dashboard launch under Chromium: **PASS**
+- FastAPI `/health`, `/predict`, and `/manus-routes.json` checks: **PASS**
 - Model-file integrity and sample prediction: **PASS**
 - Invalid/missing input columns are rejected by `validate_input()` with a clear `ValueError`.
 
-The project does not currently expose a FastAPI service or a separate collision-screening endpoint, so those report claims should be removed or marked as future work rather than presented as implemented features.
+The project exposes the FastAPI prediction service and browser dashboard. It does not currently expose a collision-screening endpoint or a CesiumJS view, so those report claims should be marked as future work rather than presented as implemented features.

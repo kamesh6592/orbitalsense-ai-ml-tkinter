@@ -4,7 +4,7 @@ This is a cleaned, standalone version of the uploaded project. Repository intern
 
 ## Install
 
-Use Python 3.9 or newer. Tkinter is part of most Python installations; on Ubuntu, install it if needed with `sudo apt install python3-tk`.
+Use Python 3.9 or newer.
 
 ```bash
 python -m venv .venv
@@ -12,13 +12,13 @@ source .venv/bin/activate       # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
-## Run the local Tkinter UI
+## Run the browser UI locally
 
 ```bash
-python run_project.py --gui
+uvicorn api:app --reload
 ```
 
-Enter the 13 telemetry values and click **Predict link**. The result is also saved as `OrbitalSense_New_Predictions.csv`. **Load CSV** accepts a one-row CSV such as `new_links_sample.csv`.
+Open `http://127.0.0.1:8000/` in a browser. Enter the 13 telemetry values and click **Predict link**.
 
 ## Run the Render-ready API locally
 
@@ -34,7 +34,7 @@ For Render, create a new Web Service from this repository. Render can use `rende
 - Start command: `uvicorn api:app --host 0.0.0.0 --port $PORT`
 - Health check path: `/health`
 
-The Tkinter desktop UI is not a browser UI and should be run locally, not as the Render web process.
+The same FastAPI process serves the browser dashboard at `/` and the JSON API endpoints.
 
 ## Run without the UI
 
