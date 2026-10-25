@@ -1,37 +1,1134 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="OrbitalSense AI - Satellite link intelligence and machine learning predictions.">
   <title>OrbitalSense AI | Link Intelligence</title>
+
   <style>
-    :root{--bg:#071321;--panel:#0e2235;--panel2:#122c43;--line:#21445c;--text:#eef7fb;--muted:#95aec0;--accent:#39d4be;--accent2:#75e6d6;--warning:#ffbd69;--shadow:0 18px 60px rgba(0,0,0,.26)}
-    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 90% 0%,#123a4d 0,transparent 32rem),var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-    .shell{max-width:1180px;margin:0 auto;padding:30px 22px 54px}.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:30px}.brand{letter-spacing:.15em;font-size:12px;color:var(--accent);font-weight:800}.title{font-size:clamp(34px,5vw,62px);line-height:.98;margin:9px 0 12px;max-width:700px;letter-spacing:-.05em}.lede{color:var(--muted);max-width:660px;margin:0}.status{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px;white-space:nowrap}.dot{width:9px;height:9px;background:var(--accent);border-radius:50%;box-shadow:0 0 14px var(--accent)}
-    .layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:20px}.panel{background:linear-gradient(145deg,rgba(18,44,67,.95),rgba(10,29,47,.95));border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.form-panel{padding:24px}.section-kicker{font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:800;margin-bottom:17px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}.field label{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;margin-bottom:7px}.hint{font-size:11px;color:var(--muted);font-weight:500}.field input{width:100%;border:1px solid #2b536b;border-radius:9px;background:#102f46;color:var(--text);padding:12px 13px;outline:0;font-size:14px;transition:.2s}.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(57,212,190,.14)}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}.button{border:0;border-radius:9px;padding:12px 18px;font-weight:800;cursor:pointer}.secondary{background:#173950;color:var(--text)}.primary{background:var(--accent);color:#06231f}.primary:hover{background:var(--accent2)}button:disabled{opacity:.55;cursor:wait}
-    .result-panel{padding:24px;min-height:100%;display:flex;flex-direction:column}.result-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.badge{font-size:11px;color:var(--accent);border:1px solid rgba(57,212,190,.35);border-radius:999px;padding:6px 9px}.empty[hidden]{display:none}.empty{display:grid;place-items:center;text-align:center;min-height:390px;color:var(--muted);border:1px dashed #2a536c;border-radius:14px;padding:25px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:8px}.cards{display:grid;gap:11px}.metric{background:rgba(7,19,33,.55);border:1px solid #1e435a;border-radius:13px;padding:15px}.metric .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.metric .value{font-size:25px;font-weight:800;margin-top:4px}.metric .unit{font-size:13px;color:var(--muted);font-weight:500}.note{margin-top:auto;color:var(--muted);font-size:12px;padding-top:20px}.error{color:#ffae9e;background:rgba(126,38,31,.2);border:1px solid #7d443b;padding:12px;border-radius:10px;margin-top:15px;display:none}.footer{margin-top:18px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:14px}.footer a{color:var(--accent)}
-    @media(max-width:850px){.topbar{display:block}.status{margin-top:18px}.layout{grid-template-columns:1fr}.result-panel{min-height:0}.empty{min-height:220px}} @media(max-width:560px){.shell{padding:22px 14px 40px}.form-panel,.result-panel{padding:18px}.fields{grid-template-columns:1fr}.title{font-size:42px}}
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-hover: #f5f5f5;
+      --input: #f0f0f0;
+      --border: #dedede;
+      --text: #171717;
+      --muted: #666666;
+      --subtle: #888888;
+      --accent: #171717;
+      --accent-hover: #383838;
+      --success: #287a43;
+      --danger: #b42318;
+      --radius: 22px;
+      --pill: 999px;
+      --shadow: 0 4px 18px rgba(0, 0, 0, 0.035);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui,
+        -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #171717;
+      outline-offset: 3px;
+    }
+
+    .shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 24px 36px;
+    }
+
+    /* Header */
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 23px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: #171717;
+      color: #ffffff;
+      border-radius: 14px;
+    }
+
+    .brand-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      border-radius: var(--pill);
+      color: #404040;
+      font-size: 12px;
+      white-space: nowrap;
+      background: #fafafa;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #359653;
+      border-radius: 50%;
+    }
+
+    /* Hero */
+
+    .hero {
+      max-width: 780px;
+      padding: 64px 0 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #666666;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(40px, 6vw, 66px);
+      line-height: 1.04;
+      letter-spacing: -.065em;
+      font-weight: 700;
+    }
+
+    .hero h1 span {
+      color: #888888;
+    }
+
+    .lede {
+      max-width: 620px;
+      margin: 0;
+      color: #666666;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 23px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      background: #f5f5f5;
+      border: 1px solid #e5e5e5;
+      border-radius: var(--pill);
+      color: #444444;
+      font-size: 11px;
+    }
+
+    /* Dashboard */
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid #e1e1e1;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head,
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .panel-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .panel-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      background: #eeeeee;
+      border: 1px solid #e1e1e1;
+      border-radius: 13px;
+      color: #171717;
+    }
+
+    .panel-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .form-body {
+      padding: 22px;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 14px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field label {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 3px 8px;
+      margin-bottom: 7px;
+      color: #262626;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .hint {
+      color: #777777;
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .field input {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 12px 13px;
+      background: #f0f0f0;
+      color: #171717;
+      border: 1px solid #dedede;
+      border-radius: 13px;
+      outline: none;
+      font-size: 13px;
+      transition: border-color .18s, background .18s;
+    }
+
+    .field input:hover {
+      border-color: #bcbcbc;
+    }
+
+    .field input:focus {
+      background: #ffffff;
+      border-color: #777777;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, .04);
+    }
+
+    .field input::placeholder {
+      color: #888888;
+    }
+
+    /* Actions */
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 11px 19px;
+      border: 1px solid transparent;
+      border-radius: var(--pill);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background .18s, transform .18s, border-color .18s;
+    }
+
+    .button svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .button:active:not(:disabled) {
+      transform: scale(.98);
+    }
+
+    .button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .button-primary {
+      flex: 1;
+      background: #171717;
+      color: #ffffff;
+    }
+
+    .button-primary:hover:not(:disabled) {
+      background: #383838;
+    }
+
+    .button-secondary {
+      background: #f1f1f1;
+      border-color: #dedede;
+      color: #171717;
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      background: #e5e5e5;
+    }
+
+    .error {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border: 1px solid #f0c5c1;
+      border-radius: 13px;
+      background: #fff1f0;
+      color: #b42318;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    /* Results */
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border: 1px solid #dedede;
+      border-radius: var(--pill);
+      color: #666666;
+      background: #fafafa;
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: .06em;
+    }
+
+    .result-badge.ready {
+      color: #287a43;
+      background: #eef8f0;
+      border-color: #c9e5d0;
+    }
+
+    .result-badge.error-state {
+      color: #b42318;
+      background: #fff1f0;
+      border-color: #f0c5c1;
+    }
+
+    .empty[hidden],
+    .cards[hidden] {
+      display: none;
+    }
+
+    .empty {
+      display: grid;
+      place-items: center;
+      min-height: 345px;
+      padding: 30px 24px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 20px;
+      border: 1px solid #e1e1e1;
+      border-radius: 21px;
+      background: #eeeeee;
+      color: #171717;
+    }
+
+    .empty-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .empty strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #171717;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+    }
+
+    .empty p {
+      max-width: 265px;
+      margin: 0;
+      color: #737373;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      padding: 18px;
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid #e3e3e3;
+      border-radius: 17px;
+      background: #f5f5f5;
+      transition: background .18s, border-color .18s;
+    }
+
+    .metric:hover {
+      background: #eeeeee;
+      border-color: #cccccc;
+    }
+
+    .metric.wide {
+      grid-column: 1 / -1;
+    }
+
+    .metric-symbol {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 15px;
+      border-radius: 11px;
+      background: #e7e7e7;
+      color: #171717;
+      font-size: 17px;
+      font-weight: 650;
+    }
+
+    .metric-label {
+      color: #737373;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .metric-value {
+      margin-top: 8px;
+      color: #171717;
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      letter-spacing: -.05em;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .metric-unit {
+      color: #737373;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .result-foot {
+      padding: 0 18px 18px;
+    }
+
+    .disclaimer {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 12px 14px;
+      border: 1px solid #e3e3e3;
+      border-radius: 14px;
+      background: #f5f5f5;
+      color: #666666;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .disclaimer svg {
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+    }
+
+    /* Footer */
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e5e5;
+      color: #777777;
+      font-size: 11px;
+    }
+
+    .footer a {
+      color: #171717;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 850px) {
+      .shell {
+        max-width: 720px;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .empty {
+        min-height: 260px;
+      }
+
+      .metric-value {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .shell {
+        padding: 18px 13px 25px;
+      }
+
+      .brand-icon {
+        width: 37px;
+        height: 37px;
+      }
+
+      .brand-name {
+        font-size: 14px;
+      }
+
+      .brand-subtitle {
+        font-size: 10px;
+      }
+
+      .status {
+        padding: 7px 9px;
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 42px 0 30px;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .lede {
+        font-size: 13px;
+      }
+
+      .panel {
+        border-radius: 19px;
+      }
+
+      .panel-head,
+      .result-head {
+        padding: 17px;
+      }
+
+      .form-body {
+        padding: 17px;
+      }
+
+      .fields {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .actions {
+        flex-direction: column-reverse;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .cards {
+        padding: 12px;
+        gap: 9px;
+      }
+
+      .metric {
+        padding: 13px;
+        border-radius: 14px;
+      }
+
+      .metric-value {
+        font-size: 22px;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <main class="shell">
-    <header class="topbar"><div><div class="brand">ORBITALSENSE AI</div><h1 class="title">Link intelligence for moving networks.</h1><p class="lede">Enter current satellite-link telemetry to estimate future bandwidth, link quality, lifetime, congestion, and route performance.</p></div><div class="status"><span class="dot"></span> Model service online</div></header>
-    <section class="layout">
-      <div class="panel form-panel"><div class="section-kicker">LINK TELEMETRY / INPUT</div><form id="predict-form"><div class="fields" id="fields"></div><div class="actions"><button type="button" class="button secondary" id="reset">Reset sample</button><button class="button primary" id="submit">Predict link</button></div><div class="error" id="error"></div></form></div>
-      <aside class="panel result-panel"><div class="result-head"><div class="section-kicker" style="margin:0">PREDICTION / OUTPUT</div><span class="badge" id="badge">WAITING</span></div><div class="empty" id="empty"><div><strong>Awaiting telemetry</strong>Run a prediction to populate the route intelligence summary.</div></div><div class="cards" id="cards" hidden></div><p class="note">Synthetic-data prototype. Results support experimentation and do not replace real satellite operations or conjunction assessment.</p></aside>
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7">
+            <circle cx="12" cy="12" r="3"/>
+            <ellipse cx="12" cy="12" rx="10" ry="5"
+                     transform="rotate(-35 12 12)"/>
+            <circle cx="19.7" cy="5.1" r="1.4"
+                    fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="brand-name">OrbitalSense AI</div>
+          <div class="brand-subtitle">Satellite link intelligence</div>
+        </div>
+      </div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        <span>Model service online</span>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8">
+          <path d="M12 3v18M3 12h18"/>
+          <circle cx="12" cy="12" r="7"/>
+        </svg>
+        INTELLIGENCE FOR CONNECTED NETWORKS
+      </div>
+
+      <h1>
+        Link intelligence,<br>
+        <span>simplified.</span>
+      </h1>
+
+      <p class="lede">
+        Estimate future bandwidth, signal quality, link lifetime,
+        congestion and route performance from satellite-link telemetry.
+        One interface. Actionable predictions.
+      </p>
+
+      <div class="chips">
+        <span class="chip">13 telemetry inputs</span>
+        <span class="chip">Machine learning</span>
+        <span class="chip">FastAPI integration</span>
+      </div>
     </section>
-    <footer class="footer"><span>OrbitalSense AI · FastAPI + scikit-learn</span><a href="/docs">Open API docs</a></footer>
+
+    <!-- Dashboard -->
+    <section class="layout">
+
+      <!-- Telemetry form -->
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Link telemetry</h2>
+            <div class="panel-subtitle">
+              Configure inputs for your prediction.
+            </div>
+          </div>
+
+          <div class="panel-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.7">
+              <path d="M4 7h9m4 0h3M4 17h3m4 0h9"/>
+              <circle cx="15" cy="7" r="2"/>
+              <circle cx="9" cy="17" r="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="form-body">
+          <form id="predict-form">
+            <div class="fields" id="fields"></div>
+
+            <div class="actions">
+              <button type="button"
+                      class="button button-secondary"
+                      id="reset">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/>
+                  <path d="M3 3v5h5"/>
+                </svg>
+                Reset sample
+              </button>
+
+              <button type="submit"
+                      class="button button-primary"
+                      id="submit">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8">
+                  <path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2L12 3Z"/>
+                  <path d="m19 15 1.1 2.9L23 19l-2.9 1.1L19 23l-1.1-2.9L15 19l2.9-1.1L19 15Z"/>
+                </svg>
+                Predict link
+              </button>
+            </div>
+
+            <div class="error"
+                 id="error"
+                 role="alert"
+                 aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Results panel -->
+      <aside class="panel result-panel">
+        <div class="result-head">
+          <div>
+            <h2 class="panel-title">Prediction results</h2>
+            <div class="panel-subtitle">
+              Your link intelligence summary.
+            </div>
+          </div>
+
+          <span class="result-badge" id="badge">WAITING</span>
+        </div>
+
+        <div class="empty" id="empty">
+          <div>
+            <div class="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.5">
+                <path d="M4 18V6m0 12h16"/>
+                <path d="m7 14 4-4 3 3 5-7"/>
+                <circle cx="19" cy="6" r="1"/>
+              </svg>
+            </div>
+
+            <strong>Ready when you are.</strong>
+            <p>
+              Enter your telemetry and run a prediction to see
+              bandwidth, link quality and network performance.
+            </p>
+          </div>
+        </div>
+
+        <div class="cards" id="cards" hidden></div>
+
+        <div class="result-foot">
+          <div class="disclaimer">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.7">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 11v5m0-8h.01"/>
+            </svg>
+            <span>
+              Experimental ML prototype using synthetic data.
+              Predictions are not a substitute for real satellite
+              operations or conjunction assessment.
+            </span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>OrbitalSense AI · FastAPI + scikit-learn</span>
+      <a href="/docs">Explore API documentation ↗</a>
+    </footer>
+
   </main>
-<script>
-const fields=[
- ['latency_ms','Latency','ms',35],['packet_loss_rate','Packet loss','ratio',.01],['signal_quality_score','Signal quality','0–100',85],['available_bandwidth_mbps','Available bandwidth','Mbps',120],['congestion_level_pct','Congestion level','percent',20],['remaining_contact_time_s','Remaining contact time','seconds',180],['relative_velocity_km_s','Relative velocity','km/s',6.2],['representative_orbit_altitude_km','Orbit altitude','km',15],['inter_satellite_link_distance_km','Inter-satellite distance','km',900],['traffic_load_pct','Traffic load','percent',20],['queue_delay_ms','Queue delay','ms',18],['position_uncertainty_km','Position uncertainty','km',4],['link_available','Link available','1 = yes, 0 = no',1]
-];
-const root=document.getElementById('fields'); const sample={};
-fields.forEach(([key,label,hint,value])=>{sample[key]=value; const wrap=document.createElement('div'); wrap.className='field'; wrap.innerHTML=`<label for="${key}">${label}<span class="hint">${hint}</span></label><input id="${key}" name="${key}" type="number" step="any" value="${value}" required>`; root.appendChild(wrap)});
-function setValues(values){fields.forEach(([key])=>document.getElementById(key).value=values[key])};
-document.getElementById('reset').onclick=()=>{setValues(sample); document.getElementById('error').style.display='none'};
-function card(label,value,unit=''){return `<div class="metric"><div class="label">${label}</div><div class="value">${value} <span class="unit">${unit}</span></div></div>`}
-document.getElementById('predict-form').onsubmit=async(e)=>{e.preventDefault(); const button=document.getElementById('submit'), error=document.getElementById('error'); button.disabled=true; button.textContent='Predicting…'; error.style.display='none'; try{const payload={}; fields.forEach(([key])=>payload[key]=Number(document.getElementById(key).value)); const res=await fetch('/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const data=await res.json(); if(!res.ok)throw new Error(data.detail||'Prediction failed'); const p=data.prediction; document.getElementById('empty').hidden=true; const cards=document.getElementById('cards'); cards.hidden=false; document.getElementById('badge').textContent='READY'; cards.innerHTML=card('Future bandwidth',Number(p.predicted_future_bandwidth_mbps).toFixed(2),'Mbps')+card('Link quality',p.predicted_link_quality)+card('Remaining lifetime',Number(p.predicted_remaining_lifetime_s).toFixed(2),'s')+card('Congestion',p.predicted_congestion_level)+card('Route performance',p.predicted_route_performance);}catch(err){error.textContent=err.message; error.style.display='block'}finally{button.disabled=false;button.textContent='Predict link'}};
-</script>
+
+  <script>
+    const fields = [
+      ['latency_ms', 'Latency', 'ms', 35],
+      ['packet_loss_rate', 'Packet loss', 'ratio', 0.01],
+      ['signal_quality_score', 'Signal quality', '0–100', 85],
+      ['available_bandwidth_mbps', 'Available bandwidth', 'Mbps', 120],
+      ['congestion_level_pct', 'Congestion level', '%', 20],
+      ['remaining_contact_time_s', 'Remaining contact time', 'seconds', 180],
+      ['relative_velocity_km_s', 'Relative velocity', 'km/s', 6.2],
+      ['representative_orbit_altitude_km', 'Orbit altitude', 'km', 15],
+      ['inter_satellite_link_distance_km', 'Inter-satellite distance', 'km', 900],
+      ['traffic_load_pct', 'Traffic load', '%', 20],
+      ['queue_delay_ms', 'Queue delay', 'ms', 18],
+      ['position_uncertainty_km', 'Position uncertainty', 'km', 4],
+      ['link_available', 'Link available', '1 = yes, 0 = no', 1]
+    ];
+
+    const $ = id => document.getElementById(id);
+    const root = $('fields');
+    const sample = {};
+
+    // Generate the 13 telemetry inputs.
+    fields.forEach(([key, label, hint, value]) => {
+      sample[key] = value;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'field';
+
+      const labelEl = document.createElement('label');
+      labelEl.htmlFor = key;
+      labelEl.appendChild(document.createTextNode(label));
+
+      const hintEl = document.createElement('span');
+      hintEl.className = 'hint';
+      hintEl.textContent = hint;
+      labelEl.appendChild(hintEl);
+
+      const input = document.createElement('input');
+      input.id = key;
+      input.name = key;
+      input.type = 'number';
+      input.step = 'any';
+      input.required = true;
+      input.value = value;
+      input.autocomplete = 'off';
+
+      wrap.append(labelEl, input);
+      root.appendChild(wrap);
+    });
+
+    function setValues(values) {
+      fields.forEach(([key]) => {
+        $(key).value = values[key];
+      });
+    }
+
+    function setError(message) {
+      $('error').textContent = message;
+      $('error').style.display = message ? 'block' : 'none';
+    }
+
+    function setBadge(text, state = '') {
+      const badge = $('badge');
+      badge.textContent = text;
+      badge.classList.remove('ready', 'error-state');
+
+      if (state) {
+        badge.classList.add(state);
+      }
+    }
+
+    $('reset').addEventListener('click', () => {
+      setValues(sample);
+      setError('');
+    });
+
+    // Define the expected FastAPI response fields.
+    const resultDefinitions = [
+      {
+        key: 'predicted_future_bandwidth_mbps',
+        label: 'Future bandwidth',
+        unit: 'Mbps',
+        decimals: 2,
+        symbol: '↗'
+      },
+      {
+        key: 'predicted_link_quality',
+        label: 'Link quality',
+        unit: '',
+        symbol: '◎'
+      },
+      {
+        key: 'predicted_remaining_lifetime_s',
+        label: 'Remaining lifetime',
+        unit: 's',
+        decimals: 2,
+        symbol: '◷'
+      },
+      {
+        key: 'predicted_congestion_level',
+        label: 'Congestion',
+        unit: '',
+        symbol: '≋'
+      },
+      {
+        key: 'predicted_route_performance',
+        label: 'Route performance',
+        unit: '',
+        symbol: '⌁',
+        wide: true
+      }
+    ];
+
+    // Safely render prediction values as text.
+    function renderResults(prediction) {
+      const cards = $('cards');
+      cards.replaceChildren();
+
+      resultDefinitions.forEach(def => {
+        const value = prediction[def.key];
+
+        if (value === undefined || value === null) {
+          throw new Error(
+            `Missing prediction field: ${def.key}`
+          );
+        }
+
+        let display;
+
+        if (typeof value === 'number') {
+          if (!Number.isFinite(value)) {
+            throw new Error(
+              `Invalid prediction value: ${def.key}`
+            );
+          }
+
+          display = def.decimals !== undefined
+            ? value.toFixed(def.decimals)
+            : String(value);
+        } else if (
+          typeof value === 'string' ||
+          typeof value === 'boolean'
+        ) {
+          display = String(value);
+        } else {
+          throw new Error(
+            `Invalid prediction type: ${def.key}`
+          );
+        }
+
+        const metric = document.createElement('article');
+        metric.className =
+          'metric' + (def.wide ? ' wide' : '');
+
+        const symbol = document.createElement('div');
+        symbol.className = 'metric-symbol';
+        symbol.setAttribute('aria-hidden', 'true');
+        symbol.textContent = def.symbol;
+
+        const label = document.createElement('div');
+        label.className = 'metric-label';
+        label.textContent = def.label;
+
+        const valueEl = document.createElement('div');
+        valueEl.className = 'metric-value';
+        valueEl.appendChild(
+          document.createTextNode(display)
+        );
+
+        if (def.unit) {
+          const unit = document.createElement('span');
+          unit.className = 'metric-unit';
+          unit.textContent = ' ' + def.unit;
+          valueEl.appendChild(unit);
+        }
+
+        metric.append(symbol, label, valueEl);
+        cards.appendChild(metric);
+      });
+
+      $('empty').hidden = true;
+      cards.hidden = false;
+      setBadge('READY', 'ready');
+    }
+
+    // Send telemetry to the existing FastAPI endpoint.
+    $('predict-form').addEventListener(
+      'submit',
+      async event => {
+        event.preventDefault();
+
+        const button = $('submit');
+
+        if (button.disabled) return;
+
+        setError('');
+
+        const payload = {};
+
+        for (const [key, label] of fields) {
+          const input = $(key);
+          const value = input.valueAsNumber;
+
+          if (
+            input.value.trim() === '' ||
+            !Number.isFinite(value)
+          ) {
+            input.focus();
+            setError(`Please enter a valid number for ${label}.`);
+            return;
+          }
+
+          payload[key] = value;
+        }
+
+        if (![0, 1].includes(payload.link_available)) {
+          $('link_available').focus();
+          setError(
+            'Link available must be either 0 or 1.'
+          );
+          return;
+        }
+
+        const originalButton = button.innerHTML;
+        button.disabled = true;
+        button.textContent = 'Predicting…';
+        setBadge('RUNNING');
+
+        try {
+          const response = await fetch('/predict', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            const detail =
+              typeof data.detail === 'string'
+                ? data.detail
+                : 'The prediction service returned an error.';
+
+            throw new Error(detail);
+          }
+
+          if (
+            !data.prediction ||
+            typeof data.prediction !== 'object' ||
+            Array.isArray(data.prediction)
+          ) {
+            throw new Error(
+              'The API returned an invalid prediction response.'
+            );
+          }
+
+          renderResults(data.prediction);
+        } catch (error) {
+          setBadge('ERROR', 'error-state');
+
+          setError(
+            error instanceof TypeError
+              ? 'Could not connect to the prediction API. Check that FastAPI is running and that this page uses the correct API origin.'
+              : error.message || 'Prediction failed. Please try again.'
+          );
+        } finally {
+          button.disabled = false;
+          button.innerHTML = originalButton;
+        }
+      }
+    );
+  </script>
 </body>
 </html>
