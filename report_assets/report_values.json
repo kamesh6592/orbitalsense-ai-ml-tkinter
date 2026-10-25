@@ -1,0 +1,46 @@
+{
+  "dataset_file": "OrbitalSense_AI_Kaggle_Style_Dataset.csv",
+  "records": 10000,
+  "columns": 24,
+  "split_ratio": "80% train / 20% held-out test",
+  "random_seed": 42,
+  "stacking_cv": "5-fold StratifiedKFold, shuffle=True, random_state=42",
+  "classification_averages": "macro (zero_division=0)",
+  "regression": [
+    {
+      "Model": "M1 Random Forest - Bandwidth",
+      "MAE": 0.14745056999999173,
+      "RMSE": 0.42486591415427966,
+      "R2": 0.999996760843466
+    },
+    {
+      "Model": "M3 Extra Trees - Link Lifetime",
+      "MAE": 0.022596699999994842,
+      "RMSE": 0.09976714679692,
+      "R2": 0.9999987655835674
+    }
+  ],
+  "classification": [
+    {
+      "Model": "M2 SVM - Link Quality",
+      "Accuracy": 0.8615,
+      "Precision": 0.8486033199975688,
+      "Recall": 0.8968591689008848,
+      "F1-score": 0.8639968006573439
+    },
+    {
+      "Model": "M4 KNN - Congestion",
+      "Accuracy": 0.8665,
+      "Precision": 0.8864426205264714,
+      "Recall": 0.7768329123167833,
+      "F1-score": 0.8132152575562787
+    },
+    {
+      "Model": "Stacking - Route Performance",
+      "Accuracy": 0.891,
+      "Precision": 0.8317417533050956,
+      "Recall": 0.8790269598066589,
+      "F1-score": 0.851237391004093
+    }
+  ]
+}

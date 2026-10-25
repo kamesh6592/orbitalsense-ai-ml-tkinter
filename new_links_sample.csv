@@ -1,0 +1,2 @@
+latency_ms,packet_loss_rate,signal_quality_score,available_bandwidth_mbps,congestion_level_pct,remaining_contact_time_s,relative_velocity_km_s,representative_orbit_altitude_km,inter_satellite_link_distance_km,traffic_load_pct,queue_delay_ms,position_uncertainty_km,link_available
+35.0,0.01,85.0,120.0,20.0,180.0,6.2,15.0,900.0,20.0,18.0,4.0,1
